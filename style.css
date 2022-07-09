@@ -56,3 +56,10 @@ button {
     justify-content: space-evenly;
 }
 
+.row .blue {
+    background-color: #1e71ffb3;
+}
+
+.row .bluetxt {
+    color: #4b8dffb3;
+}

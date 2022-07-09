@@ -1,3 +1,87 @@
+const digits = document.querySelectorAll('.digit')
+const operations = document.querySelectorAll('.operation')
+const initiations = document.querySelectorAll('.initiation')
+
+const displayUI = document.querySelector('#display')
+
+
+let displayValue = '0'
+let savedValue = ''
+let selectedOperator = ''
+
+let STATE = 'BEGIN'
+
+digits.forEach(element => {
+    
+    element.addEventListener('click', (e) => {
+        if(STATE == 'RESULT') {
+            STATE = 'BEGIN'
+        }
+        addToDisplay(element)
+    })
+})
+
+
+operations.forEach(element => {
+    element.addEventListener('click', (e) => {
+        if(STATE == 'OPERATE') {
+            resultDisplay()
+            savedValue = displayUI.innerText
+            displayValue = '0'
+            selectedOperator = element.innerText
+            STATE = 'OPERATE'
+        } else {
+            savedValue = displayUI.innerText
+            displayValue = '0'
+            selectedOperator = element.innerText
+            STATE = 'OPERATE'
+        }
+        
+            
+        
+    })
+})
+
+initiations.forEach(element => {
+    element.addEventListener('click', (e) => {
+        if(element.innerText == '=') {
+            resultDisplay()
+            savedValue = displayUI.innerText
+            displayValue = '0'
+            STATE = 'RESULT'
+        }
+
+        if(element.innerText == 'AC') {
+            resetCalculator()
+        }
+
+    }) 
+})
+
+
+function addToDisplay(element) {
+    if (displayValue == '0') {
+        displayValue = element.innerText
+        displayUI.innerText = displayValue
+    } else {
+        displayValue += element.innerText
+        displayUI.innerText = displayValue
+    }
+}
+
+function resetCalculator() {
+    displayValue = '0'
+    savedValue = ''
+    selectedOperator = ''
+    displayUI.innerText = displayValue
+    STATE = 'BEGIN'
+}
+
+function resultDisplay() {
+    result = operate(selectedOperator, parseFloat(savedValue), parseFloat(displayValue))
+    displayUI.innerText = result
+}
+
 function add(a, b) {
     return a + b
 }
@@ -32,71 +116,3 @@ function operate(operator, a, b) {
             break;
     }
 }
-//selecting digits
-const digits = document.querySelectorAll('.digit')
-let currentShownValue = '0'
-
-//changing display to when digit button is clicked by calling function
-digits.forEach(element => {
-    element.addEventListener('click', (e) => {
-        if(selectedOperator != '=') {
-            if(currentShownValue != '0') {
-                currentShownValue += element.innerText
-                displayValue(currentShownValue)
-            } else {
-                currentShownValue = element.innerText
-                displayValue(currentShownValue)
-            }
-        } else {
-            currentShownValue = element.innerText
-            displayValue(currentShownValue)
-            selectedOperator = ''
-        }
-    })
-})
-
-//selecting display
-const display = document.querySelector('#display')
-
-//function to change display
-function displayValue(value) {
-    display.innerText = value
-}
-
-//selecting operators
-const operators = document.querySelectorAll('.operation')
-
-//save selected operator and display number and change display value to nothing after next digit input
-let selectedOperator = ''
-let firstValue
-operators.forEach(element => {
-    element.addEventListener('click', (e) => {
-        
-        if(selectedOperator !='' && selectedOperator != '=') {
-            solution = operate(selectedOperator, parseInt(firstValue), parseInt(currentShownValue))
-            displayValue(solution)
-            firstValue = solution
-        }
-        firstValue = (selectedOperator !='' && selectedOperator != '=') ? solution: currentShownValue
-
-        selectedOperator = element.innerText
-        currentShownValue = '0'
-    })
-})
-
-//select initiation buttons
-const initiations = document.querySelectorAll('.initiation')
-
-let solution = 0
-// if = is pressed show solution and reset everything, save solution as firstValue
-initiations.forEach(element => {
-    element.addEventListener('click', (e) => {
-        if(element.innerText == '=') {
-            solution = operate(selectedOperator, parseInt(firstValue), parseInt(currentShownValue))
-            displayValue(solution)
-            firstValue = solution
-            selectedOperator = '='
-            currentShownValue = solution
-        }
-    })
-})
