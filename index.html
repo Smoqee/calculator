@@ -2,40 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="style.css" type="stylesheet">
+    <link href="style.css" rel="stylesheet">
     <script src="main.js" defer></script>
 
 </head>
 <body>
-    <h1>Calculator</h1>
-
     <div class="container">
-        <div id="display">0</div>
+        <div id="display">0
+        </div>
         <div id="input">
-            <div id="left-area">
-                <button class="digit">1</button>
-                <button class="digit">2</button>
-                <button class="digit">3</button>
-                <button class="digit">4</button>
-                <button class="digit">5</button>
-                <button class="digit">6</button>
+            <div class="row">
+
                 <button class="digit">7</button>
                 <button class="digit">8</button>
                 <button class="digit">9</button>
+                <button class="operation">/</button>
+            </div>
+
+            <div class="row">
+                <button class="digit">4</button>
+                <button class="digit">5</button>
+                <button class="digit">6</button>
+                <button class="operation">*</button>
+            </div>
+
+            <div class="row">
+                <button class="digit">1</button>
+                <button class="digit">2</button>
+                <button class="digit">3</button>
+                <button class="operation">-</button>
+            </div>
+            
+            <div class="row">
+                <button class="initiation">AC</button>
                 <button class="digit">0</button>
+                <button class="initiation">=</button>
+                <button class="operation">+</button>
             </div>
-            <div id="right-area">
-                <div id="operations">
-                    <button class="operation">+</button>
-                    <button class="operation">-</button>
-                    <button class="operation">*</button>
-                    <button class="operation">/</button>
-                </div>
-                <div id="initiations">
-                    <button class="initiation">AC</button>
-                    <button class="initiation">=</button>
-                </div>
-            </div>
+            
         </div>
     </div>
 </body>
